@@ -48,76 +48,71 @@
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Alamat</label>
                                     @foreach ($data88 as $a)
-                                        @foreach ($data_user as $b)
-                                            @if ($a->users_id == $b->id)
-                                                <input type="text" class="form-control" id="users_id" name="users_id"
-                                                    value="{{ $b->id }}" hidden>
-                                                <input type="text" class="form-control" id="nama" name="nama"
-                                                    value="{{ $a->alamat }}" disabled>
-                                            @endif
-                                        @endforeach
+                                        @if ($a->users_id == Auth::getUser()->id)
+                                            <input type="text" class="form-control" id="alamat" name="alamat"
+                                                value="{{ $a->alamat }}" disabled>
+                                        @endif
+                                        @if ($a->users_id == !Auth::getUser()->id)
+                                            <input type="text" class="form-control" id="alamat" name="alamat"
+                                                placeholder="Belum Ada Data" disabled>
+                                        @endif
                                     @endforeach
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Tempat Lahir</label>
                                     @foreach ($data88 as $a)
-                                        @foreach ($data_user as $b)
-                                            @if ($a->users_id == $b->id)
-                                                <input type="text" class="form-control" id="users_id" name="users_id"
-                                                    value="{{ $b->id }}" hidden>
-                                                <input type="text" class="form-control" id="nama" name="nama"
-                                                    value="{{ $a->tempat_lahir }}" disabled>
-                                            @endif
-                                        @endforeach
+                                        @if ($a->users_id == Auth::getUser()->id)
+                                            <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir"
+                                                value="{{ $a->tempat_lahir }}" disabled>
+                                        @endif
+                                        @if ($a->users_id == !Auth::getUser()->id)
+                                            <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir"
+                                                placeholder="Belum Ada Data" disabled>
+                                        @endif
                                     @endforeach
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Tanggal Lahir</label>
                                     @foreach ($data88 as $a)
-                                        @foreach ($data_user as $b)
-                                            @if ($a->users_id == $b->id)
-                                                <input type="text" class="form-control" id="users_id" name="users_id"
-                                                    value="{{ $b->id }}" hidden>
-                                                <input type="text" class="form-control" id="nama" name="nama"
-                                                    value="{{ $a->tanggal_lahir }}" disabled>
-                                            @endif
-                                        @endforeach
+                                        @if ($a->users_id == Auth::getUser()->id)
+                                            <input type="text" class="form-control" id="tanggal_lahir"
+                                                name="tanggal_lahir" value="{{ $a->tanggal_lahir }}" disabled>
+                                        @endif
+                                        @if ($a->users_id == !Auth::getUser()->id)
+                                            <input type="text" class="form-control" id="tanggal_lahir"
+                                                name="tanggal_lahir" placeholder="Belum Ada Data" disabled>
+                                        @endif
                                     @endforeach
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Agama</label>
                                     @foreach ($data88 as $a)
                                         @foreach ($data_agama as $c)
-                                            @if ($a->agama_id == $c->id)
-                                                <input type="text" class="form-control" id="users_id" name="users_id"
-                                                    value="{{ $a->agama_id }}" hidden>
-                                                <input type="text" class="form-control" id="nama" name="nama"
-                                                    value="{{ $c->nama_agama }}" disabled>
+                                            @if ($a->users_id == Auth::getUser()->id)
+                                                @if ($a->agama_id == $c->id)
+                                                    <input type="text" class="form-control" id="agama_id"
+                                                        name="agama_id" value="{{ $c->nama_agama }}" disabled>
+                                                @endif
+                                                @if ($a->agama_id == null)
+                                                    <input type="text" class="form-control" id="agama_id"
+                                                        name="agama_id" placeholder="Belum Ada Data" disabled>
+                                                @endif
                                             @endif
                                         @endforeach
                                     @endforeach
-                                    {{-- <select class="form-control" id="agama_id" name="agama_id">
-                                            @foreach ($data_agama as $b)
-                                                <option value="{{ $b->id }}">
-                                                    {{ $b->nama_agama }}
-                                                </option>
-                                            @endforeach
-                                        </select> --}}
-                                    {{-- BUAT EDIT DATA --}}
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Foto KTP</label>
-                                    {{-- <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="exampleInputFile"
-                                                    name="foto">
-                                                <label class="custom-file-label" for="exampleInputFile">Pilih
-                                                    gambar</label>
-                                            </div>
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">Upload</span>
-                                            </div>
-                                        </div> --}}
+                                    @foreach ($data88 as $a)
+                                        @if ($a->users_id == Auth::getUser()->id)
+                                            <input type="text" class="form-control" id="foto_ktp" name="foto_ktp"
+                                                value="{{ $a->foto_ktp }}" disabled>
+                                        @endif
+                                        @if ($a->users_id == !Auth::getUser()->id)
+                                            <input type="text" class="form-control" id="foto_ktp" name="foto_ktp"
+                                                placeholder="Belum Ada Data" disabled>
+                                        @endif
+                                    @endforeach
                                 </div>
                             </div>
                             <!-- /.card-body -->

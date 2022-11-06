@@ -81,6 +81,19 @@
                             </select>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="foto_ktp">Foto</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="foto_ktp" name="foto_ktp">
+                                <label class="custom-file-label" for="foto_ktp">Pilih
+                                    Gambar</label>
+                            </div>
+                            <div class="input-group-append">
+                                <span class="input-group-text">Upload</span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-5">
                             <button type="submit" class="btn btn-primary btn-block">Register</button>

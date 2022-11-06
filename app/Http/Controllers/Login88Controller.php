@@ -144,13 +144,39 @@ class Login88Controller extends Controller
             return redirect('/');
         } else {
             Session::flash('error', 'Email atau Password salah');
-            return redirect('/loginuser88');
+            return redirect('/loginuserbaru88');
         }
     }
 
     public function logoutuserbaru88()
     {
         Auth::logout();
+        return redirect('/loginuserbaru88');
+    }
+
+    public function forget88()
+    {
+        return view('auth.forget88');
+    }
+
+    public function prosesreset88(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+
+        $data = User::all();
+        foreach ($data as $a) {
+            $b = $a->email;
+            if ($request->email == $b) {
+                $editpass = User::findorfail($a->id);
+                $editpass->update([
+                    'password' => bcrypt($request->password)
+                ]);
+            }
+        }
+
         return redirect('/loginuserbaru88');
     }
 }

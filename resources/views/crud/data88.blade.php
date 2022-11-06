@@ -65,10 +65,9 @@
                                                                         <td>{{ $c->nama_agama }}</td>
                                                                         <td>{{ $umur }}</td>
                                                                         <td><a
-                                                                                href="{{ url('delete', $kode->id_penduduk) }}">Hapus</a>
+                                                                                href="{{ url('delete88', $b->id) }}">Hapus</a>
                                                                         </td>
-                                                                        <td><a
-                                                                                href="{{ url('edit', $kode->id_penduduk) }}">Edit</a>
+                                                                        <td><a href="{{ url('edit88', $b->id) }}">Edit</a>
                                                                         </td>
                                                                     @endif
                                                                 @endif

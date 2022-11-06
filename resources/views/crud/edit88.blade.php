@@ -33,89 +33,87 @@
                         <div class="card card-primary">
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form action=" {{ url('/prosesedit88') }} " method="post">
+                            <form action=" {{ url('prosesedit88', $id) }} " method="post">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Nama</label>
                                         @foreach ($data_user as $a)
-                                            @if ($a->id == $id)
-                                                <input type="text" class="form-control" id="users_id" name="users_id"
-                                                    value="{{ $a->id }}" hidden>
-                                                <input type="text" class="form-control" id="nama" name="nama"
-                                                    value="{{ $a->name }}">
+                                            @if ($a == !null)
+                                                @if ($a->id == $id)
+                                                    <input type="text" class="form-control" id="users_id"
+                                                        name="users_id" value="{{ $a->id }}" hidden>
+                                                    <input type="text" class="form-control" id="nama" name="nama"
+                                                        value="{{ $a->name }}">
+                                                @endif
                                             @endif
                                         @endforeach
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Alamat</label>
-                                        @if ($a == !null)
-                                            @foreach ($data88 as $a)
-                                                @foreach ($data_user as $b)
-                                                    @if ($a->users_id == $b->id)
-                                                        <input type="text" class="form-control" id="users_id"
-                                                            name="users_id" value="{{ $b->id }}" hidden>
-                                                        <input type="text" class="form-control" id="nama"
-                                                            name="nama" value="{{ $a->alamat }}">
-                                                    @endif
-                                                @endforeach
-                                            @endforeach
-                                            <input type="text" class="form-control" id="alamat" name="alamat"
-                                                placeholder="Masukkan Alamat">
-                                        @endif
+                                        @foreach ($data88 as $a)
+                                            @if ($a->users_id == Auth::getUser()->id)
+                                                <input type="text" class="form-control" id="alamat" name="alamat"
+                                                    value="{{ $a->alamat }}">
+                                            @endif
+                                            @if ($a->users_id == !Auth::getUser()->id)
+                                                <input type="text" class="form-control" id="alamat" name="alamat"
+                                                    placeholder="Masukkan Alamat">
+                                            @endif
+                                        @endforeach
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Tempat Lahir</label>
-                                        @if ($a == !null)
-                                            @foreach ($data88 as $a)
-                                                @foreach ($data_user as $b)
-                                                    @if ($a->users_id == $b->id)
-                                                        <input type="text" class="form-control" id="users_id"
-                                                            name="users_id" value="{{ $b->id }}" hidden>
-                                                        <input type="text" class="form-control" id="nama"
-                                                            name="nama" value="{{ $a->tempat_lahir }}">
-                                                    @endif
-                                                @endforeach
-                                            @endforeach
-                                            <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir"
-                                                placeholder="Masukkan Tempat Lahir">
-                                        @endif
+                                        @foreach ($data88 as $a)
+                                            @if ($a->users_id == Auth::getUser()->id)
+                                                <input type="text" class="form-control" id="tempat_lahir"
+                                                    name="tempat_lahir" value="{{ $a->tempat_lahir }}">
+                                            @endif
+                                            @if ($a->users_id == !Auth::getUser()->id)
+                                                <input type="text" class="form-control" id="tempat_lahir"
+                                                    name="tempat_lahir" placeholder="Masukkan Tempat Lahir">
+                                            @endif
+                                        @endforeach
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Tanggal Lahir</label>
-                                        @if ($a == !null)
-                                            @foreach ($data88 as $a)
-                                                @foreach ($data_user as $b)
-                                                    @if ($a->users_id == $b->id)
-                                                        <input type="text" class="form-control" id="users_id"
-                                                            name="users_id" value="{{ $b->id }}" hidden>
-                                                        <input type="text" class="form-control" id="nama"
-                                                            name="nama" value="{{ $a->tanggal_lahir }}">
-                                                    @endif
-                                                @endforeach
-                                            @endforeach
-                                            <input type="text" class="form-control" id="tanggal_lahir"
-                                                name="tanggal_lahir" placeholder="Masukkan Tanggal Lahir">
-                                        @endif
+                                        @foreach ($data88 as $a)
+                                            @if ($a->users_id == Auth::getUser()->id)
+                                                <input type="date" class="form-control" id="tanggal_lahir"
+                                                    name="tanggal_lahir" value="{{ $a->tanggal_lahir }}">
+                                            @endif
+                                            @if ($a->users_id == !Auth::getUser()->id)
+                                                <input type="date" class="form-control" id="tanggal_lahir"
+                                                    name="tanggal_lahir" placeholder="Belum Ada Data">
+                                            @endif
+                                        @endforeach
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Agama</label>
                                         <select class="form-control" id="agama_id" name="agama_id">
                                             @foreach ($data_agama as $b)
-                                                <option value="{{ $b->id }}">
-                                                    {{ $b->nama_agama }}
-                                                </option>
+                                                @if ($a->user_id == Auth::getUser()->id)
+                                                    @if ($a->agama_id == $b->id)
+                                                        <option value="{{ $b->id }}">
+                                                            {{ $b->nama_agama }}
+                                                        </option>
+                                                    @endif
+                                                @else
+                                                    <option value="{{ $b->id }}">
+                                                        {{ $b->nama_agama }}
+                                                    </option>
+                                                @endif
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">Foto KTP</label>
+                                        <label for="foto_ktp">Foto KTP</label>
                                         <div class="input-group">
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="exampleInputFile"
-                                                    name="foto">
-                                                <label class="custom-file-label" for="exampleInputFile">Pilih
-                                                    gambar</label>
+                                                <input type="file" class="custom-file-input" id="foto_ktp"
+                                                    name="foto_ktp">
+                                                <label class="custom-file-label" for="foto_ktp">Pilih
+                                                    Gambar</label>
                                             </div>
                                             <div class="input-group-append">
                                                 <span class="input-group-text">Upload</span>

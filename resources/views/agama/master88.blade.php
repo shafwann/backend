@@ -66,10 +66,14 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('/profil88') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Data Diri</p>
-                                    </a>
+                                    @foreach ($data_user as $a)
+                                        @if ($a->id == Auth::getUser()->id)
+                                            <a href="{{ url('profil88', $a->id) }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Data Diri</p>
+                                            </a>
+                                        @endif
+                                    @endforeach
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ url('/dataagama88') }}" class="nav-link">

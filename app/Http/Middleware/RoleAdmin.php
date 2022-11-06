@@ -18,7 +18,7 @@ class RoleAdmin
     public function handle(Request $request, Closure $next)
     {
         if ($request->user()->role == 'User') {
-            return redirect('/profil88');
+            return redirect('/profil88/{id}');
         }
 
         return $next($request);

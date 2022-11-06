@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agama88;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class Agama88Controller extends Controller
@@ -86,11 +87,13 @@ class Agama88Controller extends Controller
     // Agama
     public function addAgama88()
     {
-        return view('agama.tambah88');
+        $data_user = User::all();
+        return view('agama.tambah88', compact('data_user'));
     }
 
     public function prosestambah88(Request $request)
     {
+        $data_user = User::all();
         $this->validate($request, [
             'nama_agama' => 'required'
         ]);
@@ -99,19 +102,21 @@ class Agama88Controller extends Controller
             'nama_agama' => $request->nama_agama,
         ]);
 
-        return redirect('/dataagama88');
+        return redirect('/dataagama88', compact('data_user'));
     }
 
     public function data88()
     {
+        $data_user = User::all();
         $dataagama88 = Agama88::all();
-        return view('agama.data88', compact('dataagama88'));
+        return view('agama.data88', compact('dataagama88', 'data_user'));
     }
 
     public function delete88($id)
     {
+        $data_user = User::all();
         $deleteagama = Agama88::findorfail($id);
         $deleteagama->delete();
-        return back();
+        return back(compact('data_user'));
     }
 }

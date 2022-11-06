@@ -94,10 +94,6 @@ class Data88Controller extends Controller
         $data88 = Data88::all();
         $data_user = User::all();
         $data_agama = Agama88::all();
-        // $lahir = Data88::all()->tanggal_lahir;
-        // $today = Carbon::now()->format('Y-m-d');
-        // $umur = $today->diff($lahir);
-        // $umur = \Carbon\Carbon::parse($data88->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y years, %m months and %d days');
         return view('crud.data88', compact('data88', 'data_user', 'data_agama'));
     }
 
@@ -110,41 +106,71 @@ class Data88Controller extends Controller
         return view('crud.tambah88', compact('data88', 'data_user', 'id', 'data_agama'));
     }
 
-    public function prosesedit88(Request $request)
+    public function prosesedit88(Request $request, $id)
     {
-        $data = [
-            'alamat' => $request->input('alamat'),
-            'users_id' => $request->input('users_id'),
-            'tempat_lahir' => $request->input('tempat_lahir'),
-            'tanggal_lahir' => $request->input('tanggal_lahir'),
-            'agama_id' => $request->input('agama_id'),
-            'foto_ktp' => $request->input('foto_ktp')
-        ];
+        $data = User::findorfail($id);
 
-        $data_user = User::all();
-        $data_agama = Agama88::all();
-        Data88::update([
-            'alamat' => $request->alamat,
-            'users_id' => $request->users_id,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'agama_id' => $request->agama_id,
-            'foto_ktp' => $request->foto_ktp,
+        $data->update([
+            'name'     => $request->nama
         ]);
 
+        $data88 = Data88::all();
+        foreach ($data88 as $a) {
+            if ($a->users_id == Auth::getUser()->id) {
+                $detail_data = Data88::findorfail($a->id);
+                $detail_data->update([
+                    'alamat'     => $request->alamat,
+                    'tempat_lahir'     => $request->tempat_lahir,
+                    'tanggal_lahir'     => $request->tanggal_lahir,
+                    'agama_id'     => $request->agama_id,
+                ]);
+            } elseif (Auth::getUser()->id == !($a->users_id)) {
+                Data88::create([
+                    'alamat'     => $request->alamat,
+                    'users_id'  => Auth::getUser()->id,
+                    'tempat_lahir'     => $request->tempat_lahir,
+                    'tanggal_lahir'     => $request->tanggal_lahir,
+                    'agama_id'     => $request->agama_id,
+                ]);
+            }
+        }
+
+
         return redirect('/');
+
+        // $data = [
+        //     'alamat' => $request->input('alamat'),
+        //     'users_id' => $request->input('users_id'),
+        //     'tempat_lahir' => $request->input('tempat_lahir'),
+        //     'tanggal_lahir' => $request->input('tanggal_lahir'),
+        //     'agama_id' => $request->input('agama_id'),
+        //     'foto_ktp' => $request->input('foto_ktp')
+        // ];
+
+        // $data_user = User::all();
+        // $data_agama = Agama88::all();
+        // Data88::update([
+        //     'alamat' => $request->alamat,
+        //     'users_id' => $request->users_id,
+        //     'tempat_lahir' => $request->tempat_lahir,
+        //     'tanggal_lahir' => $request->tanggal_lahir,
+        //     'agama_id' => $request->agama_id,
+        //     'foto_ktp' => $request->foto_ktp,
+        // ]);
+
+        // return redirect('/');
 
         // $tanggal_lahir = explode("/", $request->tanggal_lahir);
         // $umur = (date("md", date("U", mktime(0, 0, 0, $tanggal_lahir[0], $tanggal_lahir[1], $tanggal_lahir[2]))) > date("md") ? ((date("Y") - $tanggal_lahir[2]) - 1) : (date("Y") - $tanggal_lahir[2]));;
     }
 
-    public function editData88($id)
+    public function editData88()
     {
-        $editData88 = Data88::findorfail($id);
-        $data88 = Data88::all();
+        $id = Auth::user()->id;
         $data_user = User::all();
+        $data88 = Data88::all();
         $data_agama = Agama88::all();
-        return view('crud.edit88', compact('editData88', 'data88', 'data_user', 'data_agama'));
+        return view('crud.edit88', compact('data_user', 'data88', 'id', 'data_agama'));
     }
 
     public function activator88()

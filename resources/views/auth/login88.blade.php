@@ -46,13 +46,21 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-5">
-                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        <div class="icheck-primary col-5">
+                            <p class="mb-0">
+                                <a href="{{ url('forget88') }}">Forget password</a>
+                            </p>
                         </div>
                         <div class="icheck-primary col-7 text-right">
                             <p class="mb-0">
                                 <a href="{{ url('/registeruserbaru88') }}">Register new account</a>
                             </p>
+                        </div>
+                    </div>
+                    <div class="row icheck-primary">
+                        <div class="col-3"></div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-primary btn-block">Login</button>
                         </div>
                     </div>
                     <!-- /.social-auth-links -->
